@@ -22,6 +22,9 @@ jobs:
     - name: Run yagcc API container
       run: docker run -d --name yagcc -p 555:80 lswiderski/yet-another-garmin-connect-client-api
 
+    - name: Wait for yagcc to start
+      run: sleep 10
+
     - name: Run index.ts
       run: |
         export HOME_ASSISTANT_API_URL=${{ secrets.HOME_ASSISTANT_API_URL }}
