@@ -1,0 +1,21 @@
+{
+  "name": "gac-upload",
+  "version": "0.0.1",
+  "description": "Garmin upload",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "dependencies": {
+    "axios": "^1.6.3",
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19"
+  }
+}

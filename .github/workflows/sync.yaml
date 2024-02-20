@@ -1,0 +1,32 @@
+name: sync-weight-to-garmin-connect
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run yagcc API container
+      run: docker run -d --name yagcc -p 555:80 lswiderski/yet-another-garmin-connect-client-api
+
+    - name: Build Docker image
+      run: docker build -t HAMiScale2GarminConnect .
+
+    - name: Run Docker container
+      run: docker run --name HAMiScale2GarminConnect hamiscale2garminconnect
+
+    - name: Check container exit code
+      run: |
+        EXIT_CODE=$(docker inspect hamiscale2garminconnect --format='{{.State.ExitCode}}')
+        echo "Container exited with code $EXIT_CODE"
+        if [ "$EXIT_CODE" -ne "0" ]; then
+          exit 1
+        fi
+
+    - name: Stop and remove containers
+      run: docker rm -f yagcc hamiscale2garminconnect
