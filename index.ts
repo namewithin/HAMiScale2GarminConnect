@@ -61,7 +61,7 @@ const fetchSensorData = async (): Promise<void> => {
     };
 
     if (yagccApiUrl) {
-      const yagccResponse: AxiosResponse = await axios.post(yagccApiUrl, yagccPayload);
+      const yagccResponse: AxiosResponse = await axios.post(yagccApiUrl+'/upload', yagccPayload);
 
       if (yagccResponse.status !== 201) {
         console.log("response status: ", yagccResponse.status); // Log the HTTP status code
