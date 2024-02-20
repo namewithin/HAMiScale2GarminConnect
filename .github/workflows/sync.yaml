@@ -2,6 +2,8 @@ name: sync-weight-to-garmin-connect
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'
 
 jobs:
   build-and-run:
