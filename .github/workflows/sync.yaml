@@ -11,22 +11,26 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm ci
+
     - name: Run yagcc API container
       run: docker run -d --name yagcc -p 555:80 lswiderski/yet-another-garmin-connect-client-api
 
-    - name: Build Docker image
-      run: docker build -t HAMiScale2GarminConnect .
-
-    - name: Run Docker container
-      run: docker run --name HAMiScale2GarminConnect hamiscale2garminconnect
-
-    - name: Check container exit code
+    - name: Run index.ts
       run: |
-        EXIT_CODE=$(docker inspect hamiscale2garminconnect --format='{{.State.ExitCode}}')
-        echo "Container exited with code $EXIT_CODE"
-        if [ "$EXIT_CODE" -ne "0" ]; then
-          exit 1
-        fi
+        export HOME_ASSISTANT_API_URL=${{ secrets.HOME_ASSISTANT_API_URL }}
+        export HOME_ASSISTANT_ACCESS_TOKEN=${{ secrets.HOME_ASSISTANT_ACCESS_TOKEN }}
+        export YAGCC_API_URL=http://yagcc:80
+        export GARMIN_EMAIL=${{ secrets.GARMIN_EMAIL }}
+        export GARMIN_PASSWORD=${{ secrets.GARMIN_PASSWORD }}
+        export BODYMISCALE_NAME=${{ secrets.BODYMISCALE_NAME }}
+        npx ts-node index.ts
 
     - name: Stop and remove containers
-      run: docker rm -f yagcc hamiscale2garminconnect
+      run: docker rm -f yagcc
