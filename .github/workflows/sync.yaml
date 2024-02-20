@@ -29,7 +29,7 @@ jobs:
       run: |
         export HOME_ASSISTANT_API_URL=${{ secrets.HOME_ASSISTANT_API_URL }}
         export HOME_ASSISTANT_ACCESS_TOKEN=${{ secrets.HOME_ASSISTANT_ACCESS_TOKEN }}
-        export YAGCC_API_URL=http://yagcc:80
+        export YAGCC_API_URL=http://localhost:555
         export GARMIN_EMAIL=${{ secrets.GARMIN_EMAIL }}
         export GARMIN_PASSWORD=${{ secrets.GARMIN_PASSWORD }}
         export BODYMISCALE_NAME=${{ secrets.BODYMISCALE_NAME }}
