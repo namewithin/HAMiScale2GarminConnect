@@ -30,7 +30,7 @@ const fetchFromApi = async (url: string): Promise<AxiosResponse<SensorData>> => 
 
 const fetchSensorData = async (): Promise<void> => {
   try {
-    const response = await fetchFromApi(`${homeAssistantApiUrl}/api/states/bodymiscale.leonid`);
+    const response = await fetchFromApi(`${homeAssistantApiUrl}/api/states/bodymiscale.${bodymiscale_name}`);
     const {
       attributes: {
         bmi,
